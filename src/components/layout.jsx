@@ -2,7 +2,7 @@ import React from "react"
 import { Link } from "gatsby"
 
 import withFirebaseAuth from "react-with-firebase-auth"
-import * as firebase from "firebase/app"
+import firebase from "firebase"
 import "firebase/auth"
 import firebaseConfig from "../utilities/firebaseConfig"
 import { push as Menu } from "react-burger-menu"
@@ -10,7 +10,10 @@ import { push as Menu } from "react-burger-menu"
 import "../styles/styles.scss"
 
 const firebaseApp = firebase.initializeApp(firebaseConfig)
-const firebaseAppAuth = firebaseApp.auth()
+let firebaseAppAuth
+if (typeof window !== "undefined") {
+  firebaseAppAuth = firebaseApp.auth()
+}
 const providers = {
   googleProvider: new firebase.auth.GoogleAuthProvider(),
 }
